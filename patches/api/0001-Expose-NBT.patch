@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: root <root@DESKTOP-CQ3R844.localdomain>
+Date: Wed, 23 Feb 2022 20:29:56 +0300
+Subject: [PATCH] Expose NBT
+
+
+diff --git a/src/main/java/net/parkermc/legends/legendary/nbt/NBTTagCompound.java b/src/main/java/net/parkermc/legends/legendary/nbt/NBTTagCompound.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..f0a2c2c8c697c965a176e13c600aaafbc33bab4e
+--- /dev/null
++++ b/src/main/java/net/parkermc/legends/legendary/nbt/NBTTagCompound.java
+@@ -0,0 +1,24 @@
++package net.parkermc.legends.legendary.nbt;
++
++import org.jetbrains.annotations.Nullable;
++import java.util.Set;
++import java.util.UUID;
++
++public interface NBTTagCompound {
++    /**
++     * Checks if the nbt tag has as tag for the key
++     *
++     * @param key The key to check for
++     * @return If the key exists in the tag
++     */
++    boolean hasKey(@Nullable String key);
++
++    /**
++     * Gets a boolean tag
++     *
++     * @param key The key to get the value of
++     * @return The value of the key
++     */
++    boolean getBoolean(@Nullable String key);
++}
++

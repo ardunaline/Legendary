@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: root <root@DESKTOP-CQ3R844.localdomain>
+Date: Wed, 23 Feb 2022 20:37:08 +0300
+Subject: [PATCH] Expose item NBT
+
+
+diff --git a/src/main/java/org/bukkit/inventory/meta/ItemMeta.java b/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
+index f093f991f1fedd20fcef041b093398250b7fb286..e48f7ed5031e1e8cf0002e3c771199df62115ffe 100644
+--- a/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
++++ b/src/main/java/org/bukkit/inventory/meta/ItemMeta.java
+@@ -6,6 +6,7 @@ import java.util.List;
+ import java.util.Map;
+ import java.util.Set;
+ import net.kyori.adventure.text.Component;
++import net.parkermc.legends.legendary.nbt.NBTTagCompound;
+ import org.bukkit.attribute.Attribute;
+ import org.bukkit.attribute.AttributeModifier;
+ import org.bukkit.configuration.serialization.ConfigurationSerializable;
+@@ -24,6 +25,22 @@ import org.jetbrains.annotations.Nullable;
+  * This class should not be implemented by a plugin in a live environment.
+  */
+ public interface ItemMeta extends Cloneable, ConfigurationSerializable, PersistentDataHolder {
++    // Legendary Start
++
++    /**
++     * Gets an item's NBT tag
++     * @return  The NBT tag or null if none
++     */
++    @Nullable NBTTagCompound getTag();
++
++    /**
++     * Sets the item NBT tag
++     *
++     * @param tag the new NBT tag for the item
++     */
++    void setTag(@Nullable NBTTagCompound tag);
++
++    // Legendary End
+ 
+     /**
+      * Checks for existence of a display name.
