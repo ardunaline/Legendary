@@ -1,0 +1,74 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: root <root@DESKTOP-CQ3R844.localdomain>
+Date: Wed, 23 Feb 2022 20:11:42 +0300
+Subject: [PATCH] Basic Build changes
+
+
+diff --git a/build.gradle.kts b/build.gradle.kts
+index c4dfc34277e59143d346725c9ef2bfbcee59bc06..18cb33157032ae0a17dfe02e955d87be2c56ac31 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -18,12 +18,12 @@ repositories {
+ }
+ 
+ dependencies {
+-    // ForkTest start
+-    implementation(project(":forktest-api"))
++    // Legendary start
++    implementation(project(":legendary-api"))
+     implementation("io.papermc.paper:paper-mojangapi:1.18-R0.1-SNAPSHOT") {
+         exclude("io.papermc.paper", "paper-api")
+     }
+-    // ForkTest end
++    // Legendary end
+     // Paper start
+     implementation("org.jline:jline-terminal-jansi:3.21.0")
+     implementation("net.minecrell:terminalconsoleappender:1.3.0")
+@@ -71,7 +71,7 @@ tasks.jar {
+         attributes(
+             "Main-Class" to "org.bukkit.craftbukkit.Main",
+             "Implementation-Title" to "CraftBukkit",
+-            "Implementation-Version" to "git-ForkTest-$implementationVersion", // ForkTest
++            "Implementation-Version" to "git-Legendary-$implementationVersion", // Legendary
+             "Implementation-Vendor" to date, // Paper
+             "Specification-Title" to "Bukkit",
+             "Specification-Version" to project.version,
+diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
+index 4aba540f4bc8014548cc10818472431dfa6b2ede..18dc0aadc7383caf013559811d7cf0711dfb4c25 100644
+--- a/src/main/java/net/minecraft/server/MinecraftServer.java
++++ b/src/main/java/net/minecraft/server/MinecraftServer.java
+@@ -1708,7 +1708,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+ 
+     @DontObfuscate
+     public String getServerModName() {
+-        return "ForkTest"; // ForkTest - ForkTest > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
++        return "Legendart"; // Legendary - Legendary > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
+     }
+ 
+     public SystemReport fillSystemReport(SystemReport details) {
+diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+index d941957dee45911626f62e55f598490a60d6c818..070b5cfe206e33bbcfb000e2cdfc12dc50ffada0 100644
+--- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
++++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
+@@ -255,7 +255,7 @@ import javax.annotation.Nullable; // Paper
+ import javax.annotation.Nonnull; // Paper
+ 
+ public final class CraftServer implements Server {
+-    private final String serverName = "ForkTest"; // ForkTest // Paper
++    private final String serverName = "Legendary"; // Legendary // Paper
+     private final String serverVersion;
+     private final String bukkitVersion = Versioning.getBukkitVersion();
+     private final Logger logger = Logger.getLogger("Minecraft");
+diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
+index 21f39bd0c33ef2635249298e6a247afba8b05742..657f9cf4a8c78fd42aac246e507effc57ef03ff1 100644
+--- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
++++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
+@@ -11,7 +11,7 @@ public final class Versioning {
+     public static String getBukkitVersion() {
+         String result = "Unknown-Version";
+ 
+-        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/com.example.paperfork/forktest-api/pom.properties"); // ForkTest
++        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/net.parkermc.legendary/legendary-api/pom.properties"); // Legendary
+         Properties properties = new Properties();
+ 
+         if (stream != null) {

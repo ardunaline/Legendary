@@ -1,37 +1,55 @@
-# ForkTest - A Paper fork, using paperweight
+Legendary
+===========
 
-This is an example project, showcasing how to setup a fork of Paper (or any other fork using paperweight), using paperweight.
+Paper fork for the "Legends" project.
+The fork is based off of the framework used in Spottedleaf's Concrete
 
-The files of most interest are
-- build.gradle.kts
-- settings.gradle.kts
-- gradle.properties
 
-## Tasks
+How To (Plugin Developers)
+------
 
+* Maven Repo (for legendary-api):
+```xml
+<!--Coming soon!-->
 ```
-Paperweight tasks
------------------
-applyApiPatches
-applyPatches
-applyServerPatches
-cleanCache - Delete the project setup cache and task outputs.
-generateDevelopmentBundle
-paperclipJar - Build a runnable paperclip jar
-rebuildApiPatches
-rebuildPatches
-rebuildServerPatches
-reobfJar - Re-obfuscate the built jar to obf mappings
-runDev - Spin up a non-shaded non-remapped test server
-runReobf - Spin up a test server from the reobfJar output jar
-runShadow - Spin up a test server from the shadowJar archiveFile
+* Artifact Information:
+```xml
+<dependency>
+    <groupId>net.parkerMC.legendary</groupId>
+    <artifactId>legendary-api</artifactId>
+    <version>1.18.1-R0.1-SNAPSHOT</version>
+    <scope>provided</scope>
+</dependency>
+ ```
+
+**Or alternatively, with Gradle:**
+
+* Repository:
+```kotlin
+repositories {
+    maven {
+        //Coming soon!
+    }
+}
+
+dependencies {
+    compileOnly("net.parkermc.legendary:legendary-api:1.18.1-R0.1-SNAPSHOT")
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
 ```
 
-## Branches
+How To (Compiling Jar From Source)
+------
+To compile Legendary, you need JDK 17 and an internet connection.
 
-Each branch of this project represents an example:
+Clone this repo, run `./gradlew applyPatches`, then `./gradlew paperclipJar` from your terminal. You can find the compiled jar in the project root's `build/libs` directory.
 
- - [`main` is the standard example](https://github.com/PaperMC/paperweight-examples/tree/main)
- - [`submodules` shows how paperweight can be applied on a fork using the more traditional git submodule system](https://github.com/PaperMC/paperweight-examples/tree/submodules)
- - [`mojangapi` shows how a fork could patch arbitrary non-git directories (such as `Paper-MojangAPI`)](https://github.com/PaperMC/paperweight-examples/tree/mojangapi)
- - [`submodules-mojang` shows the same as `mojangapi`, but on the git submodules setup from `submodules`](https://github.com/PaperMC/paperweight-examples/tree/submodules-mojangapi)
+How To (Patches)
+------
+Patches are effectively just commits in either Legendary-API or Legendary-Server.
+To create one, just add a commit to either repo and run `./gradlew rebuildPatches`, and a
+patch will be placed in the patches folder. Modifying commits will also modify its
+corresponding patch file.
