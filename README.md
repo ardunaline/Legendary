@@ -10,7 +10,10 @@ How To (Plugin Developers)
 
 * Maven Repo (for legendary-api):
 ```xml
-<!--Coming soon!-->
+<repository>
+    <id>respy</id>
+    <url>https://repo.repsy.io/mvn/ardun/default</url>
+</repository>
 ```
 * Artifact Information:
 ```xml
@@ -28,7 +31,9 @@ How To (Plugin Developers)
 ```kotlin
 repositories {
     maven {
-        //Coming soon!
+        maven {
+            url = uri("https://papermc.io/repo/repository/maven-public/")
+        }
     }
 }
 

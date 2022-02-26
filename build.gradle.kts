@@ -79,7 +79,7 @@ tasks.generateDevelopmentBundle {
             "https://libraries.minecraft.net/",
             "https://papermc.io/repo/repository/maven-public/",
             "https://maven.quiltmc.org/repository/release/",
-            // "https://my.repo/", // This should be a repo hosting your API
+            "https://repo.repsy.io/mvn/ardun/default", // This should be a repo hosting your API
         )
     )
 }
@@ -91,7 +91,7 @@ allprojects {
         repositories {
             maven {
                 name = "myRepoSnapshots"
-                // url = uri("https://my.repo/")
+                url = uri("https://repo.repsy.io/mvn/ardun/default")
                 // See Gradle docs for how to provide credentials to PasswordCredentials
                 // https://docs.gradle.org/current/samples/sample_publishing_credentials.html
                 credentials(PasswordCredentials::class)
