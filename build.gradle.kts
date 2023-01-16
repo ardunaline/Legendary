@@ -1,22 +1,22 @@
-import io.papermc.paperweight.util.constants.*
-
 plugins {
     java
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.1.2" apply false
-    id("io.papermc.paperweight.patcher") version "1.3.4"
+    id("io.papermc.paperweight.patcher") version "1.4.0"
 }
+
+val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
 
 repositories {
     mavenCentral()
-    maven("https://papermc.io/repo/repository/maven-public/") {
-        content { onlyForConfigurations(PAPERCLIP_CONFIG) }
+    maven(paperMavenPublicUrl) {
+        content { onlyForConfigurations(configurations.paperclip.name) }
     }
 }
 
 dependencies {
-    remapper("net.fabricmc:tiny-remapper:0.8.1:fat")
-    decompiler("net.minecraftforge:forgeflower:1.5.498.22")
+    remapper("net.fabricmc:tiny-remapper:0.8.6:fat")
+    decompiler("net.minecraftforge:forgeflower:2.0.605.1")
     paperclip("io.papermc:paperclip:3.0.2")
 }
 
@@ -37,7 +37,7 @@ subprojects {
         options.release.set(17)
     }
     tasks.withType<Javadoc> {
-        options.encoding = Charsets.UTF_8.name()
+        enabled = false
     }
     tasks.withType<ProcessResources> {
         filteringCharset = Charsets.UTF_8.name()
@@ -45,15 +45,15 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven("https://papermc.io/repo/repository/maven-public/")
+        maven(paperMavenPublicUrl)
     }
 }
 
 paperweight {
     serverProject.set(project(":legendary-server"))
 
-    remapRepo.set("https://maven.fabricmc.net/")
-    decompileRepo.set("https://files.minecraftforge.net/maven/")
+    remapRepo.set(paperMavenPublicUrl)
+    decompileRepo.set(paperMavenPublicUrl)
 
     usePaperUpstream(providers.gradleProperty("paperRef")) {
         withPaperPatcher {
@@ -76,9 +76,7 @@ tasks.generateDevelopmentBundle {
     libraryRepositories.set(
         listOf(
             "https://repo.maven.apache.org/maven2/",
-            "https://libraries.minecraft.net/",
-            "https://papermc.io/repo/repository/maven-public/",
-            "https://maven.quiltmc.org/repository/release/",
+                paperMavenPublicUrl,
             "https://repo.repsy.io/mvn/ardun/default", // This should be a repo hosting your API
         )
     )
@@ -90,8 +88,15 @@ allprojects {
     publishing {
         repositories {
             maven {
-                name = "myRepoSnapshots"
+                name = "publicRepo"
                 url = uri("https://repo.repsy.io/mvn/ardun/default")
+                // See Gradle docs for how to provide credentials to PasswordCredentials
+                // https://docs.gradle.org/current/samples/sample_publishing_credentials.html
+                credentials(PasswordCredentials::class)
+            }
+            maven {
+                name = "privateRepo"
+                url = uri("https://repo.repsy.io/mvn/ardun/private")
                 // See Gradle docs for how to provide credentials to PasswordCredentials
                 // https://docs.gradle.org/current/samples/sample_publishing_credentials.html
                 credentials(PasswordCredentials::class)

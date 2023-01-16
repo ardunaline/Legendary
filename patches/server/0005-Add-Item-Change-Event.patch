@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ardun <ardunaline@gmail.com>
+Date: Mon, 16 Jan 2023 22:29:18 +0300
+Subject: [PATCH] Add Item Change Event
+
+
+diff --git a/src/main/java/net/minecraft/world/item/ItemStack.java b/src/main/java/net/minecraft/world/item/ItemStack.java
+index 8450a22b0fc6e8dc5cad0f61ac52a82b3cd3791e..8e4e376dc27257e8699ab491c8aa2d4f6e2d6f31 100644
+--- a/src/main/java/net/minecraft/world/item/ItemStack.java
++++ b/src/main/java/net/minecraft/world/item/ItemStack.java
+@@ -846,6 +846,11 @@ public final class ItemStack {
+     // Paper end
+ 
+     public void setTag(@Nullable CompoundTag nbt) {
++        //Legendary Start
++        net.parkermc.legends.legendary.event.item.ItemNBTChangeEvent event = new net.parkermc.legends.legendary.event.item.ItemNBTChangeEvent(this.tag, nbt);
++        event.callEvent();
++        nbt = (CompoundTag) event.getNewTag();
++        //Legendary End
+         this.tag = nbt;
+         this.processEnchantOrder(this.tag); // Paper
+         if (this.getItem().canBeDepleted()) {

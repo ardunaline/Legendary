@@ -20,7 +20,7 @@ How To (Plugin Developers)
 <dependency>
     <groupId>net.parkerMC.legendary</groupId>
     <artifactId>legendary-api</artifactId>
-    <version>1.18.1-R0.1-SNAPSHOT</version>
+    <version>1.19.3-R0.1-SNAPSHOT</version>
     <scope>provided</scope>
 </dependency>
  ```
@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("net.parkermc.legendary:legendary-api:1.18.1-R0.1-SNAPSHOT")
+    compileOnly("net.parkermc.legendary:legendary-api:1.19.3-R0.1-SNAPSHOT")
 }
 
 java {

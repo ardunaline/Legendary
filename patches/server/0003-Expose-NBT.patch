@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ardun <ardunaline@gmail.com>
+Date: Mon, 16 Jan 2023 22:21:58 +0300
+Subject: [PATCH] Expose NBT
+
+
+diff --git a/src/main/java/net/minecraft/nbt/CompoundTag.java b/src/main/java/net/minecraft/nbt/CompoundTag.java
+index 42ea3573c0e8559a264fd24fc09c3a5cd7628d9b..b900fa68f7018616e28d9198c7f33fc97ebb0f31 100644
+--- a/src/main/java/net/minecraft/nbt/CompoundTag.java
++++ b/src/main/java/net/minecraft/nbt/CompoundTag.java
+@@ -18,7 +18,7 @@ import net.minecraft.CrashReport;
+ import net.minecraft.CrashReportCategory;
+ import net.minecraft.ReportedException;
+ 
+-public class CompoundTag implements Tag {
++public class CompoundTag implements Tag, net.parkermc.legends.legendary.nbt.NBTTagCompound  { // Legendary
+     public static final Codec<CompoundTag> CODEC = Codec.PASSTHROUGH.comapFlatMap((dynamic) -> {
+         Tag tag = dynamic.convert(NbtOps.INSTANCE).getValue();
+         return tag instanceof CompoundTag ? DataResult.success((CompoundTag)tag) : DataResult.error("Not a compound tag: " + tag);
+@@ -276,6 +276,11 @@ public class CompoundTag implements Tag {
+         return tag == null ? 0 : tag.getId();
+     }
+ 
++    //Legendary Start
++    @Override
++    public boolean hasKey(String key) { return this.contains(key); }
++    //Legendary End
++
+     public boolean contains(String key) {
+         return this.tags.containsKey(key);
+     }
+@@ -432,7 +437,9 @@ public class CompoundTag implements Tag {
+ 
+         return new ListTag();
+     }
+-
++    //Legendary Start
++    @Override
++    //Legendary End
+     public boolean getBoolean(String key) {
+         return this.getByte(key) != 0;
+     }
